@@ -24,6 +24,7 @@ import org.achartengine.chartdemo.demo.chart.AverageCubicTemperatureChart;
 import org.achartengine.chartdemo.demo.chart.AverageTemperatureChart;
 import org.achartengine.chartdemo.demo.chart.BudgetDoughnutChart;
 import org.achartengine.chartdemo.demo.chart.BudgetPieChart;
+import org.achartengine.chartdemo.demo.chart.CandleStickChartDemo;
 import org.achartengine.chartdemo.demo.chart.CombinedTemperatureChart;
 import org.achartengine.chartdemo.demo.chart.IDemoChart;
 import org.achartengine.chartdemo.demo.chart.MultipleTemperatureChart;
@@ -42,6 +43,7 @@ import org.achartengine.chartdemo.demo.chart.WeightDialChart;
 import org.achartengine.chartdemo.demo.chart.XYChartBuilder;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -49,14 +51,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class ChartDemo extends ListActivity {
-  private IDemoChart[] mCharts = new IDemoChart[] { new AverageTemperatureChart(),
-      new AverageCubicTemperatureChart(), new SalesStackedBarChart(), new SalesBarChart(),
-      new TrigonometricFunctionsChart(), new ScatterChart(), new SalesComparisonChart(),
-      new ProjectStatusChart(), new SalesGrowthChart(), new BudgetPieChart(),
-      new BudgetDoughnutChart(), new ProjectStatusBubbleChart(), new TemperatureChart(),
-      new WeightDialChart(), new SensorValuesChart(), new CombinedTemperatureChart(),
-      new MultipleTemperatureChart() };
-
+  private IDemoChart[] mCharts =null; ;
   private String[] mMenuText;
 
   private String[] mMenuSummary;
@@ -65,6 +60,9 @@ public class ChartDemo extends ListActivity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    initAllCharts();
+    //CandleStickChartDemo tets=new CandleStickChartDemo(this);
+    //mCharts[mCharts.]
     int length = mCharts.length;
     mMenuText = new String[length + 3];
     mMenuSummary = new String[length + 3];
@@ -81,6 +79,17 @@ public class ChartDemo extends ListActivity {
     setListAdapter(new SimpleAdapter(this, getListValues(), android.R.layout.simple_list_item_2,
         new String[] { IDemoChart.NAME, IDemoChart.DESC }, new int[] { android.R.id.text1,
             android.R.id.text2 }));
+  }
+  
+  private void initAllCharts(){
+	 mCharts = new IDemoChart[] { new AverageTemperatureChart(),
+		      new AverageCubicTemperatureChart(), new SalesStackedBarChart(), new SalesBarChart(),
+		      new TrigonometricFunctionsChart(), new ScatterChart(), new SalesComparisonChart(),
+		      new ProjectStatusChart(), new SalesGrowthChart(), new BudgetPieChart(),
+		      new BudgetDoughnutChart(), new ProjectStatusBubbleChart(), new TemperatureChart(),
+		      new WeightDialChart(), new SensorValuesChart(), new CombinedTemperatureChart(),
+		      new MultipleTemperatureChart(),
+		      new CandleStickChartDemo(this) };
   }
 
   private List<Map<String, String>> getListValues() {

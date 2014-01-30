@@ -620,6 +620,28 @@ public class ChartFactory {
     intent.putExtra(TITLE, activityTitle);
     return intent;
   }
+  
+  /**
+   * Create a Candle Stick chart Intent that can be used to start the graphical view activity
+   * @param context the context
+   * @param dataset the category series dataset (cannot be null)
+   * @param renderer the dial renderer (cannot be null)
+   * @param activityTitle the graphical chart activity title
+   * @return a dial chart intent
+   * @throws IllegalArgumentException if dataset is null or renderer is null or
+   *           if the dataset number of items is different than the number of
+   *           series renderers
+   */
+  public static final Intent getCandleStickChartIntent(Context context,
+		  XYMultipleSeriesDataset dataset, XYMultipleSeriesRenderer renderer, String activityTitle) {
+	    checkParameters(dataset, renderer);
+	    Intent intent = new Intent(context, GraphicalActivity.class);
+	    XYChart chart = new LineChart(dataset, renderer);
+	    intent.putExtra(CHART, chart);
+	    intent.putExtra(TITLE, activityTitle);
+	    return intent;
+	  }
+  
 
   /**
    * Creates a dial chart intent that can be used to start the graphical view
