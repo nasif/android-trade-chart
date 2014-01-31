@@ -13,6 +13,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -73,6 +74,7 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 	    int[] colors = new int[] { };
 	    PointStyle[] styles = new PointStyle[] {};
 	    XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
+	    renderer.setOrientation(Orientation.HORIZONTAL);
 	    int length = renderer.getSeriesRendererCount();
 	    for (int i = 0; i < length; i++) {
 	      ((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);

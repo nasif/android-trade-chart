@@ -360,6 +360,7 @@ public class XYSeries implements Serializable {
     return mMaxY;
   }
   
+  
   public synchronized void addCandleSeries(double x, double y[]) {
 	    while (mXYCandle.get(x) != null) {
 	      // add a very small value to x such as data points sharing the same x will
@@ -369,6 +370,16 @@ public class XYSeries implements Serializable {
 	    mXYCandle.put(x, y);
 	    updatecandleRange(x, y);
 	  }
+  
+  public synchronized IndexXYMap<Double, double[]> getCandleSeries(){
+	 return  mXYCandle;
+  }
+  
+  
+  public synchronized int getCandleSeriesCount(){
+	  return mXYCandle.size();
+  }
+  
   public synchronized void updatecandleRange(double x, double y[]) {
 	    mMinX = Math.min(mMinX, x);
 	    mMaxX = Math.max(mMaxX, x);

@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.SortedMap;
 
 import org.achartengine.model.Point;
@@ -34,6 +35,7 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
 import org.achartengine.renderer.XYSeriesRenderer;
+import org.achartengine.util.IndexXYMap;
 import org.achartengine.util.MathHelper;
 
 import android.graphics.Canvas;
@@ -47,6 +49,7 @@ import android.graphics.PathEffect;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.util.Log;
 
 /**
  * The XY chart rendering class.
@@ -236,6 +239,17 @@ public abstract class XYChart extends AbstractChart {
     // 2) We don't need random seeking, only sequential reading/writing, so
     // linked list makes sense
     clickableAreas = new HashMap<Integer, List<ClickableArea>>();
+    XYSeries series=mDataset.getSeriesAt(0);  // there will be one 
+    IndexXYMap<Double, double[]>map=  series.getCandleSeries();
+    Set<Double>xValues= map.keySet();
+    List<Float[]> points = new ArrayList<Float[]>();
+    for(Double d:xValues ){
+    	Double xPoint=d;
+    	double array[]=map.get(""+x);
+    }
+    
+    
+    /*
     for (int i = 0; i < sLength; i++) {
       XYSeries series = mDataset.getSeriesAt(i);
       int scale = series.getScaleNumber();
@@ -324,6 +338,7 @@ public abstract class XYChart extends AbstractChart {
         }
       }
     }
+    */
     // draw stuff over the margins such as data doesn't render on these areas
     drawBackground(mRenderer, canvas, x, bottom, width, height - bottom, paint, true,
         mRenderer.getMarginsColor());
