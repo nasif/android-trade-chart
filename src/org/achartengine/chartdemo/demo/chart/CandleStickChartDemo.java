@@ -59,7 +59,7 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 //	    for (int i = 0; i < titles.length; i++) {
 //	      x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
 //	    }
-	    List<double[]> values = new ArrayList<double[]>();
+	   // List<double[]> values = new ArrayList<double[]>();
 //	    values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
 //	        13.9 });
 //	    values.add(new double[] { 10, 10, 12, 15, 20, 24, 26, 26, 23, 18, 14, 11 });
