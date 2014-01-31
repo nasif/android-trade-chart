@@ -56,6 +56,9 @@ public class XYSeries implements Serializable {
    * 
    * @param title the series title.
    */
+  
+  private final IndexXYMap<Double, double[]> mXYCandle = new IndexXYMap<Double, double[]>();
+  
   public XYSeries(String title) {
     this(title, 0);
   }
@@ -138,6 +141,9 @@ public class XYSeries implements Serializable {
     mXY.put(x, y);
     updateRange(x, y);
   }
+  
+  
+  
 
   /**
    * Adds a new value to the series at the specified index.
@@ -353,4 +359,21 @@ public class XYSeries implements Serializable {
   public double getMaxY() {
     return mMaxY;
   }
+  
+  public synchronized void addCandleSeries(double x, double y[]) {
+	    while (mXYCandle.get(x) != null) {
+	      // add a very small value to x such as data points sharing the same x will
+	      // still be added
+	      x += getPadding();
+	    }
+	    mXYCandle.put(x, y);
+	    updatecandleRange(x, y);
+	  }
+  public synchronized void updatecandleRange(double x, double y[]) {
+	    mMinX = Math.min(mMinX, x);
+	    mMaxX = Math.max(mMaxX, x);
+	   // mMinY = Math.min(mMinY, y);
+	   // mMaxY = Math.max(mMaxY, y);
+	  }
+  
 }

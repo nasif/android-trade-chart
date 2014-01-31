@@ -56,10 +56,11 @@ public abstract class AbstractDemoChart implements IDemoChart {
     for (int i = 0; i < length; i++) {
       XYSeries series = new XYSeries(titles[i], scale);
       double[] xV = xValues.get(i);
-      double[] yV = yValues.get(i);
+      //double[] yV = yValues.get(i);
       int seriesLength = xV.length;
       for (int k = 0; k < seriesLength; k++) {
-        series.add(xV[k], yV[k]);
+       // series.add(xV[k], yV[k]);
+        series.addCandleSeries(xV[k], yValues.get(k));
       }
       dataset.addSeries(series);
     }

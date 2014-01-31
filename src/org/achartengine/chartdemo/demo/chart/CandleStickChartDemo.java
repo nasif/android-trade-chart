@@ -26,14 +26,13 @@ import au.com.bytecode.opencsv.CSVReader;
 public class CandleStickChartDemo extends AbstractDemoChart {
 	
 
-	
-	private ArrayList<Double>timestamp=new ArrayList<Double>();
-	private ArrayList<Double>open=new ArrayList<Double>();
-	private ArrayList<String>close=new ArrayList<String>();
-	private ArrayList<String>high=new ArrayList<String>();
-	private ArrayList<String>low=new ArrayList<String>();
-	private ArrayList<String>volume=new ArrayList<String>();
-	private ArrayList<String>change=new ArrayList<String>();
+	private double timestamp[]=null;
+	//private double open[]=null;
+	//private double close[]=null;
+	//private double high[]=null;
+	//private double low[]=null;
+	//private double change[]=null;
+
 	
 	
 	public CandleStickChartDemo(Context ctx){
@@ -54,39 +53,43 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 
 	@Override
 	public Intent execute(Context context) {
-		String[] titles = new String[] { "Crete", "Corfu", "Thassos", "Skiathos" };
+		String[] titles = new String[] {"candle"};
 	    List<double[]> x = new ArrayList<double[]>();
-	    for (int i = 0; i < titles.length; i++) {
-	      x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
-	    }
+	    x.add(timestamp);
+//	    for (int i = 0; i < titles.length; i++) {
+//	      x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
+//	    }
 	    List<double[]> values = new ArrayList<double[]>();
-	    values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
-	        13.9 });
-	    values.add(new double[] { 10, 10, 12, 15, 20, 24, 26, 26, 23, 18, 14, 11 });
-	    values.add(new double[] { 5, 5.3, 8, 12, 17, 22, 24.2, 24, 19, 15, 9, 6 });
-	    values.add(new double[] { 9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10 });
-	    int[] colors = new int[] { Color.BLUE, Color.GREEN, Color.CYAN, Color.YELLOW };
-	    PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND,
-	        PointStyle.TRIANGLE, PointStyle.SQUARE };
+//	    values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
+//	        13.9 });
+//	    values.add(new double[] { 10, 10, 12, 15, 20, 24, 26, 26, 23, 18, 14, 11 });
+//	    values.add(new double[] { 5, 5.3, 8, 12, 17, 22, 24.2, 24, 19, 15, 9, 6 });
+//	    values.add(new double[] { 9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10 });
+	   // values.add(open);
+	    //values.add(close);
+	    //values.add(high);
+	    //values.add(high);
+	    
+	    int[] colors = new int[] { };
+	    PointStyle[] styles = new PointStyle[] {};
 	    XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 	    int length = renderer.getSeriesRendererCount();
 	    for (int i = 0; i < length; i++) {
 	      ((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);
 	    }
-	    setChartSettings(renderer, "Average temperature", "Month", "Temperature", 0.5, 12.5, -10, 40,
-	        Color.LTGRAY, Color.LTGRAY);
+	    setChartSettings(renderer, "Candle Stick", "Time", "stockprize",1325648758000f, 1325671305000f, 2800, 2900,Color.LTGRAY, Color.LTGRAY);
 	    renderer.setXLabels(12);
 	    renderer.setYLabels(10);
 	    renderer.setShowGrid(true);
 	    renderer.setXLabelsAlign(Align.RIGHT);
 	    renderer.setYLabelsAlign(Align.RIGHT);
 	    renderer.setZoomButtonsVisible(true);
-	    renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
-	    renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
+	    renderer.setPanLimits(new double[] { 1325648758000f, 1325671305000f, 2800, 2800 });
+	    renderer.setZoomLimits(new double[] { 1325648758000f, 1325671305000f, 2800, 2800 });
 
 	    XYMultipleSeriesDataset dataset = buildDataset(titles, x, values);
-	    XYSeries series = dataset.getSeriesAt(0);
-	    series.addAnnotation("Vacation", 6, 30);
+	   // XYSeries series = dataset.getSeriesAt(0);
+	   // series.addAnnotation("Vacation", 6, 30);
 	    Intent intent = ChartFactory.getCandleStickChartIntent(context, dataset, renderer,
 	        "Candle Stick");
 	    return intent;
@@ -108,21 +111,22 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 			//Log.i("TAG","ddd"+arrays);
 			//data.clear();
 			int size=arrays.size();
-			double timestamp[]=new double[size];
-			double open[]=new double[size];
-			double close[]=new double[size];
-			double high[]=new double[size];
-			double low[]=new double[size];
-			double change[]=new double[size];
+			timestamp=new double[size];
+			double [] open=new double[size];
+			double [] close=new double[size];
+			double [] high=new double[size];
+			double [] low=new double[size];
+			double [] change=new double[size];
 			int i=0;
 			for (String[] obj:arrays) {
 				if(obj.length>0){
+				double []candlestick=new double[5];	
 				timestamp[i]=Double.parseDouble(obj[0].toString());
-				open[i]=Double.parseDouble(obj[1].toString());
-				close[i]=Double.parseDouble(obj[2].toString());
-				high[i]=Double.parseDouble(obj[3].toString());
-				low[i]=Double.parseDouble(obj[4].toString());
-				change[i]=Double.parseDouble(obj[6].toString());
+				candlestick[0]=Double.parseDouble(obj[1].toString());
+				candlestick[1]=Double.parseDouble(obj[2].toString());
+				candlestick[2]=Double.parseDouble(obj[3].toString());
+				candlestick[3]=Double.parseDouble(obj[4].toString());
+				values.add(candlestick);
 				}
 				i++;
 			}
