@@ -71,8 +71,8 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 	    //values.add(high);
 	    //values.add(high);
 	    
-	    int[] colors = new int[] { };
-	    PointStyle[] styles = new PointStyle[] {};
+	    int[] colors = new int[] {Color.RED };
+	    PointStyle[] styles = new PointStyle[] {PointStyle.POINT};
 	    XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
 	    renderer.setOrientation(Orientation.HORIZONTAL);
 	    int length = renderer.getSeriesRendererCount();
@@ -84,7 +84,8 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 	    renderer.setYLabels(10);
 	    renderer.setShowGrid(true);
 	    renderer.setXLabelsAlign(Align.RIGHT);
-	    renderer.setYLabelsAlign(Align.RIGHT);
+	    renderer.setYLabelsAlign(Align.LEFT);
+	   // renderer.setYAxisAlign(Align.RIGHT, 1);
 	    renderer.setZoomButtonsVisible(true);
 	    renderer.setPanLimits(new double[] { 1325648758000f, 1325671305000f, 2800, 2800 });
 	    renderer.setZoomLimits(new double[] { 1325648758000f, 1325671305000f, 2800, 2800 });
@@ -122,12 +123,12 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 			int i=0;
 			for (String[] obj:arrays) {
 				if(obj.length>0){
-				double []candlestick=new double[5];	
+				double []candlestick=new double[2];	
 				timestamp[i]=Double.parseDouble(obj[0].toString());
-				candlestick[0]=Double.parseDouble(obj[1].toString());
-				candlestick[1]=Double.parseDouble(obj[2].toString());
-				candlestick[2]=Double.parseDouble(obj[3].toString());
-				candlestick[3]=Double.parseDouble(obj[4].toString());
+				candlestick[0]=Double.parseDouble(obj[1].toString()); //low
+				candlestick[1]=Double.parseDouble(obj[2].toString()); //close
+				//candlestick[2]=Double.parseDouble(obj[1].toString());  //open 
+				//candlestick[3]=Double.parseDouble(obj[3].toString());//high
 				values.add(candlestick);
 				}
 				i++;

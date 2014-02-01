@@ -45,6 +45,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Join;
 import android.graphics.Paint.Style;
+import android.graphics.Color;
 import android.graphics.PathEffect;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -238,16 +239,84 @@ public abstract class XYChart extends AbstractChart {
     // 1) Avoid a large contiguous memory allocation
     // 2) We don't need random seeking, only sequential reading/writing, so
     // linked list makes sense
+    
     clickableAreas = new HashMap<Integer, List<ClickableArea>>();
     XYSeries series=mDataset.getSeriesAt(0);  // there will be one 
+    int scale=series.getScaleNumber();
     IndexXYMap<Double, double[]>map=  series.getCandleSeries();
     Set<Double>xValues= map.keySet();
-    List<Float[]> points = new ArrayList<Float[]>();
+    List<Float> points = new ArrayList<Float>();
+    float yAxisValue = Math.min(bottom, (float) (bottom + yPixelsPerUnit[scale] * minY[scale]));
+    XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) mRenderer.getSeriesRendererAt(0);
+    int startIndex = -1;
+   
     for(Double d:xValues ){
-    	Double xPoint=d;
-    	double array[]=map.get(""+x);
+    	 Double xPoint=d;
+    	 if (startIndex < 0) {
+             startIndex = series.getIndexForKey(xPoint);
+         }
+    	 double arrays[]=map.get(xPoint);
+    	 for (int i=0;i<arrays.length;i++){
+    	 points.add((float) (left + xPixelsPerUnit[scale] * (xPoint - minX[scale])));
+         points.add((float) (bottom - yPixelsPerUnit[scale] * (arrays[i] - minY[scale])));
+    	 }
+         break;
     }
-    
+    //31.677225, 493.58, 31.677225, 405.87997
+    if (points.size() > 0) {
+    	 Paint paint1=new Paint();
+         paint1.setStyle(Paint.Style.STROKE);
+         paint1.setColor(Color.RED);
+         paint1.setStrokeWidth(2);
+    	// float xy[]=new float[4];
+    	
+    	
+    	//[31.677225, 493.58, 31.677225, 405.87997, 31.677225, 493.58, 31.677225, 379.56998]
+    	//[31.677225, 493.58, 31.677225, 405.87997, 31.677225, 379.56998, 31.677225, 493.58, 31.677225, 25453.002]
+       // xy[0]=31.677225f;
+        //xy[1]=493.58f;
+        //xy[2]=31.677225f;
+        //xy[3]=405.87997f;
+      //  canvas.drawLines(xy,paint1);
+        //float xy[]=new float[4];
+        
+        Paint paint2=new Paint();
+        paint2.setStyle(Paint.Style.STROKE);
+        paint2.setColor(Color.WHITE);
+        paint2.setStrokeWidth(2);
+   	 
+        
+        float xy1[]=new float[4];
+        xy1[0]=28.677225f;  
+        xy1[1]=493.58f;
+        xy1[2]=31.677225f;
+        xy1[3]=405.87997f;
+        canvas.drawRect(xy1[0],  xy1[1], xy1[2],  xy1[3], paint2);
+       
+       
+    	//paint.setColor(Color.RED);
+//        Paint paint1=new Paint();
+//        paint1.setStyle(Paint.Style.STROKE);
+//        paint1.setColor(Color.RED);
+//        paint1.setStrokeWidth(2);
+    	//canvas.drawPoint(31.677225f,493.58f,paint1);
+    	//canvas.drawPoint(31.677225f,405.87997f,paint1);
+    	//canvas.drawPoint(31.677225f,379.56998f,paint1);
+    	//canvas.drawPoint(31.677225f,493.58f,paint1);
+    	//canvas.drawPoint(31.677225f,493.58f,paint1);
+    	//canvas.drawPoint(31.677225f,25453.002f,paint1);
+    	
+    	//canvas.drawPoints(xy,paint1);
+    	//canvas.drawPoints(xy,paint);
+    	//canvas.drawPoints(xy,paint);
+    	//canvas.drawPoints(xy,paint);
+    	//canvas.drawPoints(xy,paint);
+     //   canvas.drawLines(xy,paint1);
+    	Log.i("TAG",""+points.toString());
+        //drawSeries(series, canvas, paint1, points, seriesRenderer, yAxisValue, 0, or, startIndex);
+        //points.clear();
+       
+      }
     
     /*
     for (int i = 0; i < sLength; i++) {
