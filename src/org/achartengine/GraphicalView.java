@@ -175,17 +175,17 @@ public class GraphicalView extends View {
       height = getMeasuredHeight();
     }
     mChart.draw(canvas, left, top, width, height, mPaint);
-    if (mRenderer != null && mRenderer.isZoomEnabled() && mRenderer.isZoomButtonsVisible()) {
-      mPaint.setColor(ZOOM_BUTTONS_COLOR);
-      zoomSize = Math.max(zoomSize, Math.min(width, height) / 7);
-      mZoomR.set(left + width - zoomSize * 3, top + height - zoomSize * 0.775f, left + width, top
-          + height);
-      canvas.drawRoundRect(mZoomR, zoomSize / 3, zoomSize / 3, mPaint);
-      float buttonY = top + height - zoomSize * 0.625f;
-      canvas.drawBitmap(zoomInImage, left + width - zoomSize * 2.75f, buttonY, null);
-      canvas.drawBitmap(zoomOutImage, left + width - zoomSize * 1.75f, buttonY, null);
-      canvas.drawBitmap(fitZoomImage, left + width - zoomSize * 0.75f, buttonY, null);
-    }
+//    if (mRenderer != null && mRenderer.isZoomEnabled() && mRenderer.isZoomButtonsVisible()) {
+//      mPaint.setColor(ZOOM_BUTTONS_COLOR);
+//      zoomSize = Math.max(zoomSize, Math.min(width, height) / 7);
+//      mZoomR.set(left + width - zoomSize * 3, top + height - zoomSize * 0.775f, left + width, top
+//          + height);
+//      canvas.drawRoundRect(mZoomR, zoomSize / 3, zoomSize / 3, mPaint);
+//      float buttonY = top + height - zoomSize * 0.625f;
+//      canvas.drawBitmap(zoomInImage, left + width - zoomSize * 2.75f, buttonY, null);
+//      canvas.drawBitmap(zoomOutImage, left + width - zoomSize * 1.75f, buttonY, null);
+//      canvas.drawBitmap(fitZoomImage, left + width - zoomSize * 0.75f, buttonY, null);
+//    }
     mDrawn = true;
   }
 

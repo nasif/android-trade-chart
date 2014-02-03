@@ -85,6 +85,8 @@ public class CandleStickChartDemo extends AbstractDemoChart {
 	    renderer.setShowGrid(true);
 	    renderer.setXLabelsAlign(Align.RIGHT);
 	    renderer.setYLabelsAlign(Align.LEFT);
+	    renderer.setShowLegend(false);
+	   // renderer.setZoomButtonsVisible(false);
 	   // renderer.setYAxisAlign(Align.RIGHT, 1);
 	    renderer.setZoomButtonsVisible(true);
 	    renderer.setPanLimits(new double[] { 1325648758000f, 1325671305000f, 2800, 2800 });

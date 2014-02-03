@@ -245,29 +245,38 @@ public abstract class XYChart extends AbstractChart {
     int scale=series.getScaleNumber();
     IndexXYMap<Double, double[]>map=  series.getCandleSeries();
     Set<Double>xValues= map.keySet();
-    List<Float> points = new ArrayList<Float>();
+   // List<Float> points = new ArrayList<Float>();
     float yAxisValue = Math.min(bottom, (float) (bottom + yPixelsPerUnit[scale] * minY[scale]));
     XYSeriesRenderer seriesRenderer = (XYSeriesRenderer) mRenderer.getSeriesRendererAt(0);
     int startIndex = -1;
    
+    Paint paint1=new Paint();
+    paint1.setStyle(Paint.Style.STROKE);
+    paint1.setColor(Color.WHITE);
+    paint1.setStrokeWidth(2);
+    
     for(Double d:xValues ){
     	 Double xPoint=d;
     	 if (startIndex < 0) {
              startIndex = series.getIndexForKey(xPoint);
          }
     	 double arrays[]=map.get(xPoint);
+    	 float xy1[]=new float[4];
+    	 int j=0;
     	 for (int i=0;i<arrays.length;i++){
-    	 points.add((float) (left + xPixelsPerUnit[scale] * (xPoint - minX[scale])));
-         points.add((float) (bottom - yPixelsPerUnit[scale] * (arrays[i] - minY[scale])));
+    		 xy1[j]=(float) (left + xPixelsPerUnit[scale] * (xPoint - minX[scale]));
+    		 j=j+1;
+    		 xy1[j]=(float) (bottom - yPixelsPerUnit[scale] * (arrays[i] - minY[scale]));
+    		 j=j+1;
+    	      //points.add((float) (left + xPixelsPerUnit[scale] * (xPoint - minX[scale])));
+             //points.add((float) (bottom - yPixelsPerUnit[scale] * (arrays[i] - minY[scale])));
     	 }
-         break;
+    	 canvas.drawRect((xy1[0]-2.0f),  xy1[1], (xy1[2]+2.0f),  xy1[3], paint1);
+       //  break;
     }
     //31.677225, 493.58, 31.677225, 405.87997
-    if (points.size() > 0) {
-    	 Paint paint1=new Paint();
-         paint1.setStyle(Paint.Style.STROKE);
-         paint1.setColor(Color.RED);
-         paint1.setStrokeWidth(2);
+   // if (points.size() > 0) {
+    	
     	// float xy[]=new float[4];
     	
     	
@@ -280,18 +289,18 @@ public abstract class XYChart extends AbstractChart {
       //  canvas.drawLines(xy,paint1);
         //float xy[]=new float[4];
         
-        Paint paint2=new Paint();
-        paint2.setStyle(Paint.Style.STROKE);
-        paint2.setColor(Color.WHITE);
-        paint2.setStrokeWidth(2);
-   	 
-        
-        float xy1[]=new float[4];
-        xy1[0]=28.677225f;  
-        xy1[1]=493.58f;
-        xy1[2]=31.677225f;
-        xy1[3]=405.87997f;
-        canvas.drawRect(xy1[0],  xy1[1], xy1[2],  xy1[3], paint2);
+//        Paint paint1=new Paint();
+//        paint1.setStyle(Paint.Style.STROKE);
+//        paint1.setColor(Color.WHITE);
+//        paint1.setStrokeWidth(2);
+//   	 
+//        
+//        float xy1[]=new float[4];
+//        xy1[0]=31.677225f-2.2f;  
+//        xy1[1]=493.58f;
+//        xy1[2]=31.677225f+2.2f;
+//        xy1[3]=405.87997f;
+//        canvas.drawRect(xy1[0],  xy1[1], xy1[2],  xy1[3], paint1);
        
        
     	//paint.setColor(Color.RED);
@@ -312,11 +321,11 @@ public abstract class XYChart extends AbstractChart {
     	//canvas.drawPoints(xy,paint);
     	//canvas.drawPoints(xy,paint);
      //   canvas.drawLines(xy,paint1);
-    	Log.i("TAG",""+points.toString());
+    	//Log.i("TAG",""+points.toString());
         //drawSeries(series, canvas, paint1, points, seriesRenderer, yAxisValue, 0, or, startIndex);
         //points.clear();
        
-      }
+     // }
     
     /*
     for (int i = 0; i < sLength; i++) {
